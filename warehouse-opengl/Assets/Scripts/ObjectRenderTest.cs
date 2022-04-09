@@ -5,16 +5,10 @@ public class ObjectRenderTest : MonoBehaviour
 	[SerializeField] private MeshFilter m_meshFilter = null;
 	[SerializeField] private MeshRenderer m_meshRenderer = null;
 
-	// Fast way to view it in edit mode
-	private void OnDrawGizmos()
-	{
-		OnRenderObject();
-	}
-
-	private void OnRenderObject()
+	public void RenderObject(int pass)
 	{
 		GL.PushMatrix();
-		m_meshRenderer.sharedMaterial.SetPass(0);
+		m_meshRenderer.sharedMaterial.SetPass(pass);
 		GL.Begin(GL.TRIANGLES);
 
 		var indices = m_meshFilter.sharedMesh.GetIndices(0);

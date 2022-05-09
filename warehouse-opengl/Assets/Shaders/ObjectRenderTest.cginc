@@ -68,7 +68,7 @@ fixed4 FragmentProgram(v2f i) : SV_Target
 {
     // apply fog
     //UNITY_APPLY_FOG(i.fogCoord, col);
-
+    i.normal = normalize(i.normal);
     float3 viewDir = normalize(_WorldSpaceCameraPos - i.worldPos);
 
     float3 albedo = tex2D(_MainTex, i.uv).rgb * _Tint.rgb;

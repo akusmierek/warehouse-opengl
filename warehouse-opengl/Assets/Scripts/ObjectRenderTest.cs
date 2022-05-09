@@ -5,8 +5,13 @@ public class ObjectRenderTest : MonoBehaviour
 	[SerializeField] private MeshFilter m_meshFilter = null;
 	[SerializeField] private MeshRenderer m_meshRenderer = null;
 
+	protected bool m_canRender = true;
+
 	public void RenderObject(int pass)
 	{
+		if (!m_canRender)
+			return;
+
 		GL.PushMatrix();
 		m_meshRenderer.sharedMaterial.SetPass(pass);
 		GL.Begin(GL.TRIANGLES);

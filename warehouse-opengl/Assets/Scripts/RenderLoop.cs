@@ -5,7 +5,7 @@ public class RenderLoop : MonoBehaviour
 	[SerializeField] private Light[] m_lights = null;
 	public Light[] Lights => m_lights;
 
-	[SerializeField] private ObjectRenderTest[] m_objectsToRender = null;
+	private ObjectRenderTest[] m_objectsToRender = null;
 
 	// Fast way to view it in edit mode
 	private void OnDrawGizmos()
@@ -19,6 +19,8 @@ public class RenderLoop : MonoBehaviour
 		// _Light0.w - 0 means directional light / else it is range of the point light
 		// _Light0Color.xyz - color of the light
 		// _Light0Color.w - intensity of the light
+
+		m_objectsToRender = FindObjectsOfType<ObjectRenderTest>();
 
 		Vector4 light0;
 		Vector4 light0Color;

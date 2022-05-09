@@ -123,6 +123,56 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &448602448
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 448602450}
+  - component: {fileID: 448602449}
+  m_Layer: 0
+  m_Name: LevelGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &448602449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448602448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84d9832ddf571794c8cd08e85594ef7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_rowsCount: 5
+  m_rowWidth: 5
+  m_racksInRowCount: 5
+  m_maxShelfLoad: 500
+  m_rackPrefab: {fileID: 7175057733481168440, guid: 6d0407cafaa06804cbd2172673a0362f, type: 3}
+  m_rackSize: {x: 5, y: 3, z: 1}
+--- !u!4 &448602450
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448602448}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &626680137
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,9 +737,6 @@ MonoBehaviour:
   m_lights:
   - {fileID: 705507994}
   - {fileID: 665160809}
-  m_objectsToRender:
-  - {fileID: 626680138}
-  - {fileID: 1287898935}
 --- !u!1 &1041806329
 GameObject:
   m_ObjectHideFlags: 0

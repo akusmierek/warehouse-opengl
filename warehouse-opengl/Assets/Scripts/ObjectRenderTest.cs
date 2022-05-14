@@ -6,14 +6,18 @@ public class ObjectRenderTest : MonoBehaviour
 	[SerializeField] private MeshRenderer m_meshRenderer = null;
 
 	protected bool m_canRender = true;
+	private bool m_setTint = false;
+	private Color m_tint = Color.white;
 
 	public void RenderObject(int pass)
 	{
-		if (!m_canRender)
+		if (!m_canRender || !isActiveAndEnabled)
 			return;
 
 		GL.PushMatrix();
 		m_meshRenderer.sharedMaterial.SetPass(pass);
+		if (m_setTint)
+			m_meshRenderer.material.SetColor("_Tint", m_tint);
 		GL.Begin(GL.TRIANGLES);
 
 		var indices = m_meshFilter.sharedMesh.GetIndices(0);
@@ -34,5 +38,11 @@ public class ObjectRenderTest : MonoBehaviour
 
 		GL.End();
 		GL.PopMatrix();
+	}
+
+	public void SetTint(Color tint)
+	{
+		m_tint = tint;
+		m_setTint = true;
 	}
 }

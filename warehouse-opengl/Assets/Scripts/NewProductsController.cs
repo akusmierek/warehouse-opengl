@@ -1,26 +1,28 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NewProductsController : MonoBehaviour
 {
 	public bool IsPlaceTaken { get; set; } = false;
 	
 	[SerializeField] private GameObject m_prefab = null;
-    [SerializeField] private float[] m_weights = null;
+	[SerializeField] private Button m_button = null;
+	[SerializeField] private TMPro.TMP_InputField m_weightInput = null;
 
-	private int m_nextWeightId = 0;
+	public void AddNewProduct()
+	{
+		int weight = int.Parse(m_weightInput.text);
+		if (weight <= 0)
+			return;
+
+		var newProduct = Instantiate(m_prefab, transform.position, Quaternion.identity, transform).GetComponent<Product>();
+		newProduct.Initialize(weight, this);
+
+		IsPlaceTaken = true;
+	}
 
 	private void Update()
 	{
-		if (m_weights == null || m_nextWeightId >= m_weights.Length)
-			return;
-
-		if (!IsPlaceTaken)
-		{
-			var newProduct = Instantiate(m_prefab, transform.position, Quaternion.identity, transform).GetComponent<Product>();
-			newProduct.Initialize(m_weights[m_nextWeightId], this);
-
-			m_nextWeightId++;
-			IsPlaceTaken = true;
-		}
+		m_button.interactable = !IsPlaceTaken;
 	}
 }

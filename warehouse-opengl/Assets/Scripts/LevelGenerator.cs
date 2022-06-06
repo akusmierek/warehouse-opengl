@@ -37,7 +37,6 @@ public class LevelGenerator : MonoBehaviour
 
 		var reader = new StreamReader(filePath);
 		var content = reader.ReadToEnd();
-		Debug.Log(content);
 		m_config = JsonUtility.FromJson<WarehouseConfig>(content);
 		reader.Close();
 

@@ -1,12 +1,17 @@
+using System;
+using System.IO;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
-	[Header("User parameters")]
-    [SerializeField] private int m_rowsCount = 5;
-    [SerializeField] private float m_rowWidth = 4f;
-    [SerializeField] private int m_racksInRowCount = 10;
-    [SerializeField] private float m_maxShelfLoad = 500f;
+	[Serializable]
+	private class WarehouseConfig
+	{
+		public int RowsCount;
+		public float RowWidth;
+		public int RacksInRowCount;
+		public float MaxShelfLoad;
+	}
 
 	[Header("Other parameters")]
 	[SerializeField] private GameObject m_rackPrefab = null;
@@ -14,22 +19,42 @@ public class LevelGenerator : MonoBehaviour
 	[SerializeField, Tooltip("Width/Height/Depth")]
 	private Vector3 m_rackSize = new Vector3(5f, 3f, 1f);
 
+	private WarehouseConfig m_config = null;
+
 	private void Start()
 	{
+		string directoryPath = Application.dataPath + "/Config";
+		string filePath = directoryPath + "/config.json";
+		
+		if (!Directory.Exists(directoryPath))
+			Directory.CreateDirectory(directoryPath);
+
+		if (!File.Exists(filePath))
+		{
+			string basePath = Application.streamingAssetsPath + "/config.json";
+			File.Copy(basePath, filePath);
+		}
+
+		var reader = new StreamReader(filePath);
+		var content = reader.ReadToEnd();
+		Debug.Log(content);
+		m_config = JsonUtility.FromJson<WarehouseConfig>(content);
+		reader.Close();
+
 		Vector3 instancePosition = Vector3.zero;
 
-		for (int row = 0; row < m_rowsCount; row++)
+		for (int row = 0; row < m_config.RowsCount; row++)
 		{
-			for (int rack = 0; rack < m_racksInRowCount; rack++)
+			for (int rack = 0; rack < m_config.RacksInRowCount; rack++)
 			{
 				instancePosition.x += m_rackSize.x;
 
 				var rackInstance = Instantiate(m_rackPrefab, instancePosition + m_rackSize / 2f, Quaternion.identity, transform).GetComponent<Rack>();
-				rackInstance.Initialize(m_maxShelfLoad);
+				rackInstance.Initialize(m_config.MaxShelfLoad);
 			}
 
 			instancePosition.x = 0f;
-			instancePosition.z += m_rowWidth + m_rackSize.z;
+			instancePosition.z += m_config.RowWidth + m_rackSize.z;
 		}
 	}
 }

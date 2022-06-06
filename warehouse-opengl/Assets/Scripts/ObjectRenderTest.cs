@@ -29,10 +29,19 @@ public class ObjectRenderTest : MonoBehaviour
 		{
 			Vector3 vertex = vertices[i];
 			Vector2 uv = uvs[i];
-			Vector3 normal = normals[i];
 
 			GL.MultiTexCoord2(0, uv.x, uv.y); // Main texture
-			GL.MultiTexCoord(1, m_meshRenderer.localToWorldMatrix.MultiplyVector(normal)); // Normals in world space
+			
+			if (normals != null && i < normals.Length)
+			{
+				Vector3 normal = normals[i];
+				GL.MultiTexCoord(1, m_meshRenderer.localToWorldMatrix.MultiplyVector(normal)); // Normals in world space
+			}
+			else
+			{
+				GL.MultiTexCoord(1, m_meshRenderer.localToWorldMatrix.MultiplyVector(Vector3.up)); // Normals in world space
+			}
+
 			GL.Vertex(m_meshRenderer.localToWorldMatrix.MultiplyPoint3x4(vertex)); // Vertex in world space
 		}
 

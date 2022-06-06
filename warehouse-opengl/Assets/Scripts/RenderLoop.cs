@@ -7,12 +7,14 @@ public class RenderLoop : MonoBehaviour
 
 	private ObjectRenderTest[] m_objectsToRender = null;
 
+#if UNITY_EDITOR
 	// Fast way to view it in edit mode
 	private void OnDrawGizmos()
 	{
 		OnPostRender();
 	}
-	
+#endif
+
 	private void OnPostRender()
 	{
 		// _Light0.xyz - position when directional light / direction when point light

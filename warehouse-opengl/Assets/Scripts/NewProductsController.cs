@@ -8,6 +8,7 @@ public class NewProductsController : MonoBehaviour
 	[SerializeField] private GameObject m_prefab = null;
 	[SerializeField] private Button m_button = null;
 	[SerializeField] private TMPro.TMP_InputField m_weightInput = null;
+	[SerializeField] private TMPro.TMP_InputField m_nameInput = null;
 
 	public void AddNewProduct()
 	{
@@ -16,7 +17,7 @@ public class NewProductsController : MonoBehaviour
 			return;
 
 		var newProduct = Instantiate(m_prefab, transform.position, Quaternion.identity, transform).GetComponent<Product>();
-		newProduct.Initialize(weight, this);
+		newProduct.Initialize(m_nameInput.text, weight, this);
 
 		IsPlaceTaken = true;
 	}
